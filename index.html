@@ -20,6 +20,7 @@
             
             --success: #27ae60;
             --danger: #c0392b;
+            --pending: #95a5a6;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -78,6 +79,10 @@
             50% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.8); }
             100% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
         }
+
+        /* HIGHLIGHTS DE TEXTO */
+        .text-highlight-red { color: var(--danger); font-weight: 800; text-shadow: 0 0 15px rgba(231, 76, 60, 0.4); letter-spacing: 1px; }
+        .text-highlight-gold { color: var(--gold-text); font-weight: 800; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); letter-spacing: 1px; text-transform: uppercase; }
 
         /* TOOLTIP (Desktop Only) */
         @media (min-width: 768px) {
@@ -404,21 +409,64 @@
         #future-section .neuro-card h4 { color: #111; font-weight: 700; font-size: 1em; }
         #future-section .neuro-card p { color: #666; font-size: 0.9em; }
 
-        /* TIMELINE REFINED */
-        .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 40px 0; }
-        .timeline::after { content: ''; position: absolute; width: 3px; background: linear-gradient(to bottom, #d4af37, #ddd); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
+        /* TIMELINE REFINED (DASHBOARD) */
+        .timeline { position: relative; max-width: 1000px; margin: 0 auto; padding: 40px 0; }
+        .global-progress-container {
+            background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left;
+            position: relative;
+        }
+        .gp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .gp-title { font-family: 'Montserrat'; font-size: 1.1em; font-weight: 700; color: #111; text-transform: uppercase; letter-spacing: 1px; }
+        .gp-percent { font-size: 1.5em; font-weight: 800; color: var(--gold-text); }
+        .gp-bar-bg { width: 100%; height: 12px; background: #f0f0f0; border-radius: 6px; overflow: hidden; }
+        .gp-bar-fill { height: 100%; background: var(--gold-gradient); width: 0%; transition: width 1s ease; box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+        
+        /* Admin Button absolute in top right of progress container */
+        .admin-toggle-btn {
+            position: absolute; top: 20px; right: 20px;
+            background: #f8f9fa; color: #888; border: 1px solid #eee; padding: 5px 10px; border-radius: 4px; 
+            font-size: 0.6em; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+            transition: 0.3s;
+        }
+        .admin-toggle-btn:hover { background: #eee; color: #333; }
+
+        .timeline::after { content: ''; position: absolute; width: 3px; background: linear-gradient(to bottom, #d4af37, #ddd); top: 120px; bottom: 0; left: 50%; margin-left: -1px; }
         .timeline-item { padding: 10px 50px; position: relative; width: 50%; box-sizing: border-box; }
         .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -11px; background-color: white; border: 5px solid var(--secondary); top: 25px; border-radius: 50%; z-index: 1; box-shadow: 0 0 0 4px rgba(255,255,255,0.5); }
         .left { left: 0; text-align: right; }
         .right { left: 50%; text-align: left; }
         .right::after { left: -9px; }
         .content-box { padding: 25px; background: white; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 3px solid #111; transition: transform 0.3s; }
-        .content-box:hover { transform: scale(1.02); }
-        .week-badge { background: #111; color: white; padding: 5px 12px; border-radius: 2px; font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 10px; }
-        .week-detail { margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
-        .week-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85em; border-bottom: 1px dashed #f0f0f0; padding-bottom: 5px;}
-        .week-name { font-weight: 700; color: #d4af37; min-width: 60px; }
-        .week-task { color: #555; text-align: left; flex: 1; }
+        
+        .week-detail { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
+        .week-row { 
+            display: flex; align-items: center; justify-content: space-between; 
+            margin-bottom: 12px; font-size: 0.9em; border-bottom: 1px dashed #f5f5f5; padding-bottom: 8px;
+        }
+        
+        /* CHECKBOX VISIBILITY TOGGLE */
+        .timeline.view-mode .task-checkbox { display: none; }
+        .timeline.view-mode .status-icon { display: inline-block; margin-right: 10px; font-size: 1.1em;}
+        
+        .timeline.edit-mode .task-checkbox { display: flex; }
+        .timeline.edit-mode .status-icon { display: none; }
+
+        .status-icon.done { color: #27ae60; }
+        .status-icon.pending { color: #bdc3c7; }
+        
+        .task-checkbox { 
+            appearance: none; width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 4px; 
+            cursor: pointer; margin-right: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            transition: 0.2s;
+        }
+        .task-checkbox:checked { background: #d4af37; border-color: #d4af37; }
+        .task-checkbox:checked::after { content: '✔'; color: white; font-size: 12px; font-weight: bold; }
+        
+        .month-progress-container { margin-top: 20px; }
+        .month-bar-bg { width: 100%; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; margin-top: 8px;}
+        .month-bar-fill { height: 100%; background: #27ae60; width: 0%; transition: width 0.5s; }
+        .month-stat { font-size: 0.75em; color: #888; display: flex; justify-content: space-between; font-weight: 600; text-transform: uppercase; }
 
         /* --- NEUROVENDAS (PHONE) --- */
         .neuro-grid { display: grid; grid-template-columns: 1fr 340px 1fr; gap: 40px; align-items: center; max-width: 1200px; width: 100%;}
@@ -728,7 +776,7 @@
     <div id="pain-section" class="tab-content">
         <div class="container">
             <h1>Auditoria Digital: O Efeito Fantasma</h1>
-            <p class="subtitle">Análise Forense: A sua marca está <span class="text-highlight-red">INVISÍVEL</span> em <span class="text-highlight-gold">CHAPECÓ</span> ou sendo confundida.</p>
+            <p class="subtitle">Análise Forense: Hoje, sua marca está <span class="text-highlight-red">INVISÍVEL</span> em <span class="text-highlight-gold">CHAPECÓ</span> ou sendo confundida.</p>
 
             <div class="audit-container">
                 <div class="audit-visual">
@@ -908,9 +956,9 @@
                         <input type="number" id="prod3-meta" class="p-input" value="1" placeholder="Meta Qtd/Mês" onchange="calculatePotential()">
                      </div>
                      <div class="product-input-card">
-                        <h4>Top 4 (Balcão Madeira)</h4>
+                        <h4>Top 4 (Balcão Coz)</h4>
                         <span class="p-label">Nome</span>
-                        <input type="text" id="prod4-name" class="p-input" value="Balcão Madeira" placeholder="Nome">
+                        <input type="text" id="prod4-name" class="p-input" value="Balcão Cozinha" placeholder="Nome">
                         <span class="p-label">Valor (R$)</span>
                         <input type="number" id="prod4-val" class="p-input" value="3500" placeholder="Valor" onchange="calculatePotential()">
                         <span class="p-label">Meta Qtd/Mês</span>
@@ -919,6 +967,14 @@
                 </div>
 
                 <div class="search-volume-block">
+                    <div class="search-input-group">
+                        <label style="color:#2ecc71; font-weight:700; display:flex; align-items:center;">
+                            Buscas Ativas (Chapecó)
+                            <span data-tooltip="Número real de pessoas pesquisando agora." style="margin-left:8px; cursor:help; font-size:0.8em;">ℹ️</span>
+                        </label>
+                        <input type="number" class="p-input" id="searches" value="500" style="background:rgba(255,255,255,0.1); border-color:#2ecc71;" onchange="calculatePotential()">
+                        <span style="font-size:0.7em; color:#aaa;">Pessoas pesquisando 'móveis planejados' neste exato momento na região.</span>
+                    </div>
                     <div class="total-potential">
                         <span class="loss-label" style="color:#aaa;">Potencial de Faturamento Mensal</span>
                         <span class="potential-amount" id="potential-display">R$ 64.500,00</span>
@@ -987,7 +1043,7 @@
                 </div>
             </div>
             
-            <button class="next-btn" style="background:var(--gold-gradient); color:#000; font-weight:800; border:none;" onclick="goToTab(5)">VER CRONOGRAMA (ROI)</button>
+            <button class="next-btn" style="background:var(--gold-gradient); color:#000; font-weight:800; border:none;" onclick="goToTab(5)">VER CRONOGRAMA</button>
         </div>
     </div>
 
@@ -1166,9 +1222,9 @@
                                 <div class="chat-header-fake"><div class="chat-avatar">DM</div><div style="flex:1;"><span class="chat-name">Demarchi Projetos</span><span class="chat-status">online agora</span></div></div>
                                 <div class="chat-body">
                                     <div class="typing-indicator" id="typing">Digitando...</div>
-                                    <div class="chat-bubble msg-1">Olá, aqui é da Demarchi.</div>
-                                    <div class="chat-bubble msg-2">Gostaria de um orçamento para um [Roupeiro/Cozinha/Balcão]...</div>
-                                    <div class="chat-bubble msg-3">Para agilizar, qual ambiente você sonha em transformar?</div>
+                                    <div class="chat-bubble msg-1">Olá! Vi que curtiu nossa linha de Banheiros.</div>
+                                    <div class="chat-bubble msg-2">Temos uma condição especial de lançamento.</div>
+                                    <div class="chat-bubble msg-3">Quem fecha o banheiro, ganha o 3D da cozinha.</div>
                                 </div>
                             </div>
                         </div>
@@ -1357,7 +1413,7 @@
             }
             
             document.getElementById('roi-text').innerHTML = 
-                `Você precisa vender apenas <span style="color:#27ae60; font-weight:700;">${fraction}</span> de uma cozinha para pagar o marketing.`;
+                `Você precisa vender apenas <span style="color:#27ae60; font-weight:700;">${fraction}</span> de uma cozinha para pagar o projeto.`;
                 
             var explanation = "";
             if (ticket > investment * 12) {
@@ -1397,13 +1453,20 @@
         }
         
         function toggleEditMode() {
-            var timeline = document.getElementById('timeline-wrapper');
-            if(timeline.classList.contains('view-mode')) {
-                timeline.classList.remove('view-mode');
-                timeline.classList.add('edit-mode');
+            var password = prompt("Digite a senha de administrador:");
+            if(password === "admin123") {
+                var timeline = document.getElementById('timeline-wrapper');
+                if(timeline.classList.contains('view-mode')) {
+                    timeline.classList.remove('view-mode');
+                    timeline.classList.add('edit-mode');
+                    alert("Modo Edição Ativado: Checkboxes visíveis.");
+                } else {
+                    timeline.classList.remove('edit-mode');
+                    timeline.classList.add('view-mode');
+                    alert("Modo Visualização Ativado.");
+                }
             } else {
-                timeline.classList.remove('edit-mode');
-                timeline.classList.add('view-mode');
+                alert("Senha incorreta.");
             }
         }
 
