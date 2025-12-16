@@ -19,9 +19,7 @@
             --gold-text: #eebb4d;
             
             --success: #27ae60;
-            --warning: #f39c12;
             --danger: #c0392b;
-            --pending: #7f8c8d;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -393,68 +391,34 @@
         .metric-label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 2px; color: #888; display: block; margin-top: 10px; }
         
         .roi-calc-box {
-            background: white; border: 1px solid #27ae60; padding: 25px; border-radius: 8px; margin-top: 30px;
-            display: flex; gap: 20px; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(39, 174, 96, 0.1); flex-wrap: wrap;
+            background: white; border: 1px solid #27ae60; padding: 30px; border-radius: 8px; margin-bottom: 40px;
+            display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(39, 174, 96, 0.1);
         }
-        .roi-input { padding: 10px; border: 1px solid #ddd; border-radius: 4px; width: 140px; text-align: center; font-family: 'Montserrat'; font-size: 1em;}
-        .roi-result { font-weight: 700; color: #27ae60; font-size: 1.1em; width: 100%; text-align: center;}
-
-        /* TIMELINE REFINED (DASHBOARD) */
-        .timeline { position: relative; max-width: 1000px; margin: 0 auto; padding: 40px 0; }
-        .global-progress-container {
-            background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left;
+        .roi-input { padding: 15px; border: 1px solid #ddd; border-radius: 4px; width: 100%; text-align: center; font-family: 'Montserrat'; font-size: 1.2em; background: #f9f9f9;}
+        
+        .roi-tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; text-align: left; }
+        #future-section .neuro-card { 
+            background: #fff; border: 1px solid #eee; border-left: 3px solid #d4af37; padding: 25px; margin-bottom: 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
         }
-        .gp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .gp-title { font-family: 'Montserrat'; font-size: 1.1em; font-weight: 700; color: #111; text-transform: uppercase; letter-spacing: 1px; }
-        .gp-percent { font-size: 1.5em; font-weight: 800; color: var(--gold-text); }
-        .gp-bar-bg { width: 100%; height: 12px; background: #f0f0f0; border-radius: 6px; overflow: hidden; }
-        .gp-bar-fill { height: 100%; background: var(--gold-gradient); width: 0%; transition: width 1s ease; box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+        #future-section .neuro-card h4 { color: #111; font-weight: 700; font-size: 1em; }
+        #future-section .neuro-card p { color: #666; font-size: 0.9em; }
 
-        .timeline::after { content: ''; position: absolute; width: 3px; background: linear-gradient(to bottom, #d4af37, #ddd); top: 180px; bottom: 0; left: 50%; margin-left: -1px; }
+        /* TIMELINE REFINED */
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 40px 0; }
+        .timeline::after { content: ''; position: absolute; width: 3px; background: linear-gradient(to bottom, #d4af37, #ddd); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
         .timeline-item { padding: 10px 50px; position: relative; width: 50%; box-sizing: border-box; }
         .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -11px; background-color: white; border: 5px solid var(--secondary); top: 25px; border-radius: 50%; z-index: 1; box-shadow: 0 0 0 4px rgba(255,255,255,0.5); }
         .left { left: 0; text-align: right; }
         .right { left: 50%; text-align: left; }
         .right::after { left: -9px; }
         .content-box { padding: 25px; background: white; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 3px solid #111; transition: transform 0.3s; }
-        
-        .week-detail { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
-        .week-row { 
-            display: flex; align-items: center; justify-content: space-between; 
-            margin-bottom: 12px; font-size: 0.9em; border-bottom: 1px dashed #f5f5f5; padding-bottom: 8px;
-        }
-        
-        /* CHECKBOX VISIBILITY TOGGLE */
-        .timeline.view-mode .task-checkbox { display: none; }
-        .timeline.view-mode .status-icon { display: inline-block; margin-right: 10px; font-size: 1.1em;}
-        
-        .timeline.edit-mode .task-checkbox { display: flex; }
-        .timeline.edit-mode .status-icon { display: none; }
-
-        .status-icon.done { color: #27ae60; }
-        .status-icon.pending { color: #bdc3c7; }
-        .status-icon.working { color: #f39c12; }
-
-        .task-checkbox { 
-            appearance: none; width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 4px; 
-            cursor: pointer; margin-right: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-            transition: 0.2s;
-        }
-        .task-checkbox:checked { background: #d4af37; border-color: #d4af37; }
-        .task-checkbox:checked::after { content: '✔'; color: white; font-size: 12px; font-weight: bold; }
-        
-        .month-progress-container { margin-top: 20px; }
-        .month-bar-bg { width: 100%; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; margin-top: 8px;}
-        .month-bar-fill { height: 100%; background: #27ae60; width: 0%; transition: width 0.5s; }
-        .month-stat { font-size: 0.75em; color: #888; display: flex; justify-content: space-between; font-weight: 600; text-transform: uppercase; }
-
-        .admin-toggle-btn {
-            background: #eee; color: #555; padding: 10px 20px; border: none; border-radius: 5px; 
-            font-size: 0.7em; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
-            margin: 40px auto; display: block; opacity: 0.5; transition: 0.3s;
-        }
-        .admin-toggle-btn:hover { opacity: 1; background: #ddd; }
+        .content-box:hover { transform: scale(1.02); }
+        .week-badge { background: #111; color: white; padding: 5px 12px; border-radius: 2px; font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 10px; }
+        .week-detail { margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
+        .week-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85em; border-bottom: 1px dashed #f0f0f0; padding-bottom: 5px;}
+        .week-name { font-weight: 700; color: #d4af37; min-width: 60px; }
+        .week-task { color: #555; text-align: left; flex: 1; }
 
         /* --- NEUROVENDAS (PHONE) --- */
         .neuro-grid { display: grid; grid-template-columns: 1fr 340px 1fr; gap: 40px; align-items: center; max-width: 1200px; width: 100%;}
@@ -638,6 +602,8 @@
             animation: pulseGold 2s infinite; white-space: nowrap;
         }
         .cta-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(189, 153, 56, 0.5); }
+        .cta-gold-contrast { background: #000; color: #d4af37; border: 2px solid #d4af37; } /* High contrast alternate */
+        .cta-gold-contrast:hover { background: #d4af37; color: #000; }
 
         .next-btn {
             background: transparent; border: 1px solid #ddd; color: #111; padding: 14px 35px;
@@ -762,7 +728,7 @@
     <div id="pain-section" class="tab-content">
         <div class="container">
             <h1>Auditoria Digital: O Efeito Fantasma</h1>
-            <p class="subtitle">Análise Forense: Hoje, sua marca está <span class="text-highlight-red">INVISÍVEL</span> em <span class="text-highlight-gold">CHAPECÓ</span>.</p>
+            <p class="subtitle">Análise Forense: A sua marca está <span class="text-highlight-red">INVISÍVEL</span> em <span class="text-highlight-gold">CHAPECÓ</span> ou sendo confundida.</p>
 
             <div class="audit-container">
                 <div class="audit-visual">
@@ -942,9 +908,9 @@
                         <input type="number" id="prod3-meta" class="p-input" value="1" placeholder="Meta Qtd/Mês" onchange="calculatePotential()">
                      </div>
                      <div class="product-input-card">
-                        <h4>Top 4 (Balcão Coz)</h4>
+                        <h4>Top 4 (Balcão Madeira)</h4>
                         <span class="p-label">Nome</span>
-                        <input type="text" id="prod4-name" class="p-input" value="Balcão Cozinha" placeholder="Nome">
+                        <input type="text" id="prod4-name" class="p-input" value="Balcão Madeira" placeholder="Nome">
                         <span class="p-label">Valor (R$)</span>
                         <input type="number" id="prod4-val" class="p-input" value="3500" placeholder="Valor" onchange="calculatePotential()">
                         <span class="p-label">Meta Qtd/Mês</span>
@@ -1021,7 +987,7 @@
                 </div>
             </div>
             
-            <button class="next-btn" style="background:var(--gold-gradient); color:#000; font-weight:800; border:none;" onclick="goToTab(5)">VER CRONOGRAMA</button>
+            <button class="next-btn" style="background:var(--gold-gradient); color:#000; font-weight:800; border:none;" onclick="goToTab(5)">VER CRONOGRAMA (ROI)</button>
         </div>
     </div>
 
@@ -1181,8 +1147,9 @@
                         </div>
                         <div class="lp-section-title" style="margin-top:20px;">Complete a Casa</div>
                         <div class="lp-gallery-scroll">
-                             <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Roupeiro (Próximo)</div></div>
-                             <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Cozinha (Sonho)</div></div>
+                             <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Closet Master</div></div>
+                             <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Cozinha Gourmet</div></div>
+                             <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Balcão Madeira</div></div>
                         </div>
                         
                         <div style="height:100px;"></div>
@@ -1199,9 +1166,9 @@
                                 <div class="chat-header-fake"><div class="chat-avatar">DM</div><div style="flex:1;"><span class="chat-name">Demarchi Projetos</span><span class="chat-status">online agora</span></div></div>
                                 <div class="chat-body">
                                     <div class="typing-indicator" id="typing">Digitando...</div>
-                                    <div class="chat-bubble msg-1">Olá! Vi que curtiu nossa linha de Banheiros.</div>
-                                    <div class="chat-bubble msg-2">Temos uma condição especial de lançamento.</div>
-                                    <div class="chat-bubble msg-3">Quem fecha o banheiro, ganha o 3D da cozinha.</div>
+                                    <div class="chat-bubble msg-1">Olá, aqui é da Demarchi.</div>
+                                    <div class="chat-bubble msg-2">Gostaria de um orçamento para um [Roupeiro/Cozinha/Balcão]...</div>
+                                    <div class="chat-bubble msg-3">Para agilizar, qual ambiente você sonha em transformar?</div>
                                 </div>
                             </div>
                         </div>
