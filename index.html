@@ -20,7 +20,6 @@
             
             --success: #27ae60;
             --danger: #c0392b;
-            --pending: #7f8c8d;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -34,10 +33,6 @@
             overflow: hidden;
             color: var(--text-primary);
         }
-
-        /* HIGHLIGHTS DE TEXTO */
-        .text-highlight-red { color: var(--danger); font-weight: 800; text-shadow: 0 0 15px rgba(231, 76, 60, 0.4); letter-spacing: 1px; }
-        .text-highlight-gold { color: var(--gold-text); font-weight: 800; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); letter-spacing: 1px; text-transform: uppercase; }
 
         /* LOADER DE ENTRADA */
         #loader {
@@ -422,22 +417,6 @@
         .gp-bar-bg { width: 100%; height: 12px; background: #f0f0f0; border-radius: 6px; overflow: hidden; }
         .gp-bar-fill { height: 100%; background: var(--gold-gradient); width: 0%; transition: width 1s ease; box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
         
-        /* Admin Button absolute in top right of progress container */
-        .admin-toggle-btn {
-            position: absolute; top: 20px; right: 20px;
-            background: #f8f9fa; color: #888; border: 1px solid #eee; padding: 5px 10px; border-radius: 4px; 
-            font-size: 0.6em; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
-            transition: 0.3s;
-        }
-        .admin-toggle-btn:hover { background: #eee; color: #333; }
-        
-        .save-btn {
-            background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 4px;
-            font-size: 0.8em; font-weight: 700; cursor: pointer; margin-top: 15px; display: none;
-            float: right; box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3); transition: transform 0.2s;
-        }
-        .save-btn:hover { transform: translateY(-2px); background: #2ecc71; }
-
         .timeline::after { content: ''; position: absolute; width: 3px; background: linear-gradient(to bottom, #d4af37, #ddd); top: 120px; bottom: 0; left: 50%; margin-left: -1px; }
         .timeline-item { padding: 10px 50px; position: relative; width: 50%; box-sizing: border-box; }
         .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -11px; background-color: white; border: 5px solid var(--secondary); top: 25px; border-radius: 50%; z-index: 1; box-shadow: 0 0 0 4px rgba(255,255,255,0.5); }
@@ -451,24 +430,9 @@
             display: flex; align-items: center; justify-content: space-between; 
             margin-bottom: 12px; font-size: 0.9em; border-bottom: 1px dashed #f5f5f5; padding-bottom: 8px;
         }
-        
-        /* CHECKBOX VISIBILITY TOGGLE */
-        .timeline.view-mode .task-checkbox { display: none; }
-        .timeline.view-mode .status-icon { display: inline-block; margin-right: 10px; font-size: 1.1em;}
-        
-        .timeline.edit-mode .task-checkbox { display: flex; }
-        .timeline.edit-mode .status-icon { display: none; }
 
         .status-icon.done { color: #27ae60; }
         .status-icon.pending { color: #bdc3c7; }
-        
-        .task-checkbox { 
-            appearance: none; width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 4px; 
-            cursor: pointer; margin-right: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-            transition: 0.2s;
-        }
-        .task-checkbox:checked { background: #d4af37; border-color: #d4af37; }
-        .task-checkbox:checked::after { content: '✔'; color: white; font-size: 12px; font-weight: bold; }
         
         .month-progress-container { margin-top: 20px; }
         .month-bar-bg { width: 100%; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; margin-top: 8px;}
@@ -477,7 +441,16 @@
 
         /* --- NEUROVENDAS (PHONE) --- */
         .neuro-grid { display: grid; grid-template-columns: 1fr 300px 1fr; gap: 40px; align-items: center; max-width: 1200px; width: 100%;}
-        .phone-frame { width: 100%; max-width: 300px; height: 600px; background: #000; border-radius: 45px; padding: 10px; border: 4px solid #444; box-shadow: 0 50px 100px rgba(0,0,0,0.8); position: relative; margin: 0 auto; }
+        
+        .phone-frame { 
+            width: 100%; max-width: 320px; height: 650px; background: #000; border-radius: 45px; padding: 10px; border: 4px solid #444; 
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8); position: relative; margin: 0 auto; overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        .phone-frame.fullscreen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; max-width: 100%; border-radius: 0; border: none; z-index: 9999; padding: 0; margin: 0;
+        }
+        
         .dynamic-island { width: 90px; height: 25px; background: #000; border-radius: 20px; position: absolute; top: 15px; left: 50%; transform: translateX(-50%); z-index: 50; }
         
         .neuro-card { padding: 25px; border-left: 1px solid rgba(255,255,255,0.1); text-align: left; margin-bottom: 30px; transition: 0.3s; }
@@ -485,17 +458,20 @@
         .neuro-card h4 { color: #fff; margin: 0 0 10px 0; font-family: 'Montserrat', sans-serif; font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px;}
         .neuro-card p { font-size: 0.9em; color: #bbb; line-height: 1.6; }
         
-        /* BLOCO DE CIÊNCIA DAS CORES (NOVO) */
+        /* BLOCO DE CIÊNCIA DAS CORES */
         .color-science { 
             display: flex; gap: 10px; margin-top: 20px; 
             padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.05);
         }
-        .color-pill { flex: 1; height: 4px; border-radius: 3px; position: relative; cursor: help; transition: all 0.3s;}
-        .color-pill:hover { transform: scaleY(2); }
-        .color-pill:hover::after {
-            content: attr(data-meaning);
-            position: absolute; bottom: 10px; left: 0; background: #fff; color: #000;
-            padding: 2px 6px; font-size: 9px; border-radius: 2px; white-space: nowrap;
+        .color-pill { flex: 1; height: 30px; border-radius: 50%; position: relative; cursor: help; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.2);}
+        .color-pill:hover { transform: scale(1.1); }
+        
+        /* FULLSCREEN BUTTON */
+        .fullscreen-btn {
+            position: absolute; top: 10px; right: 10px; z-index: 60;
+            background: rgba(0,0,0,0.5); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px;
+            font-size: 9px; border-radius: 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            backdrop-filter: blur(5px);
         }
 
         /* --- MOCKUP INTERNO SOFISTICADO --- */
@@ -503,6 +479,7 @@
             width: 100%; height: 100%; background: #050505; border-radius: 35px; overflow-y: auto; overflow-x: hidden; position: relative; font-family: 'Montserrat', sans-serif; color: #eee;
             scrollbar-width: none; /* Firefox */
         }
+        .phone-frame.fullscreen .phone-screen-neuro { border-radius: 0; }
         .phone-screen-neuro::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
         /* Header Fixo */
@@ -515,11 +492,11 @@
 
         /* Hero Simples e Elegante */
         .lp-hero { 
-            height: 300px; background: linear-gradient(to bottom, rgba(0,0,0,0), #050505), url('https://images.unsplash.com/photo-1600607687644-c7171b42498f?q=80&w=600&auto=format&fit=crop'); 
+            height: 350px; background: linear-gradient(to bottom, rgba(0,0,0,0), #050505), url('https://images.unsplash.com/photo-1600607687644-c7171b42498f?q=80&w=600&auto=format&fit=crop'); 
             background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
         }
-        .lp-hero h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; line-height: 1; color: white; margin-bottom: 8px; }
-        .lp-hero p { font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; }
+        .lp-hero h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; line-height: 1; color: white; margin-bottom: 8px; }
+        .lp-hero p { font-size: 10px; color: #bbb; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; }
 
         /* Selos de Luxo */
         .lp-badges { display: flex; gap: 8px; padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -549,27 +526,30 @@
 
         /* FAQ Clean */
         .lp-faq { padding: 0 20px 100px; }
-        .lp-faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px 0; display: flex; justify-content: space-between; align-items: center;}
-        .lp-faq-q { font-size: 10px; color: #ccc; font-weight: 400; }
-        .lp-faq-icon { color: var(--gold-text); font-size: 10px; }
+        .lp-faq-item { 
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px 0; 
+            cursor: pointer; transition: all 0.3s;
+        }
+        .lp-faq-item:hover { background: rgba(255,255,255,0.05); }
+        .lp-faq-q { font-size: 10px; color: #ccc; font-weight: 400; display: flex; justify-content: space-between; align-items: center;}
+        .lp-faq-icon { color: var(--gold-text); font-size: 10px; transition: transform 0.3s; }
+        
+        .lp-faq-a { 
+            font-size: 9px; color: #888; padding: 5px 0 0 0; display: none; line-height: 1.4;
+        }
+        .lp-faq-item.active .lp-faq-a { display: block; animation: fadeUp 0.3s; }
+        .lp-faq-item.active .lp-faq-icon { transform: rotate(45deg); }
 
         /* Action Bar (Dock) */
-        .lp-action-bar {
-            position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 100;
-            width: 90%; background: rgba(30, 30, 30, 0.85); backdrop-filter: blur(15px);
-            padding: 5px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.1);
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            cursor: pointer;
-            transition: all 0.3s;
+        .s-cta-sticky {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 100;
+            width: 85%; background: rgba(30, 30, 30, 0.9); backdrop-filter: blur(15px);
+            padding: 15px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.1);
+            text-align: center; color: #fff; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6); cursor: pointer; transition: all 0.3s;
         }
-        .lp-action-bar:active { transform: translateX(-50%) scale(0.95); }
-        .lp-action-btn {
-            background: var(--gold-gradient); color: #000;
-            padding: 12px 0; border-radius: 50px; font-weight: 700; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
-            flex: 1; text-align: center;
-        }
+        .s-cta-sticky:hover { background: #000; border-color: var(--gold-text); }
+        .s-cta-sticky span { color: var(--gold-text); margin-right: 5px; }
 
         /* --- CHECKLIST LINE BY LINE --- */
         #checklist-section { background-color: #fff; }
@@ -635,13 +615,6 @@
         .module-pricing {
             display: flex; gap: 30px; margin-top: 20px; padding-top: 20px; border-top: 1px dashed #ddd; flex-wrap: wrap;
         }
-
-        /* MEDIA SLIDER */
-        .media-slider-container { margin-bottom: 20px; }
-        .media-slider-label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 10px; display: block; font-weight: 600;}
-        .media-slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px; background: #ddd; outline: none; }
-        .media-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #d4af37; cursor: pointer; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .media-value { font-weight: 700; color: #111; margin-left: 10px; }
 
         /* FOOTER DE VALORES */
         .budget-footer {
@@ -716,7 +689,10 @@
         /* Responsividade */
         @media screen and (max-width: 900px) {
             .audit-container, .neuro-grid { flex-direction: column; }
-            .phone-frame { margin: 40px auto; }
+            .phone-frame { margin: 40px auto; width: 90vw; height: 80vh; max-width: 320px; max-height: 650px;} /* Optimized for mobile */
+            .phone-frame.fullscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; max-width: none; max-height: none; border-radius: 0; z-index: 9999; margin: 0; border: none; padding: 0;}
+            .phone-frame.fullscreen .phone-screen-neuro { border-radius: 0; }
+            
             .budget-footer { width: 100%; border-radius: 0; bottom: 35px; flex-direction: column; gap: 15px; padding: 20px;}
             .total-block { text-align: center; width: 100%; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;}
             .nd-timeline { flex-direction: column; }
@@ -1014,7 +990,7 @@
                 </div>
             </div>
 
-            <button class="next-btn" onclick="goToTab(4)">VER RETORNO (ROI)</button>
+            <button class="next-btn" style="background:#fff; color:#111; font-weight:800; border:none;" onclick="goToTab(4)">VER RETORNO (ROI)</button>
         </div>
     </div>
 
@@ -1052,7 +1028,7 @@
                 </div>
                 <div class="neuro-card" style="margin-bottom:0;">
                     <h4 style="color:var(--gold-text);">2. Como Analisar?</h4>
-                    <p>Não veja os R$ 1.500 como uma conta de luz. Veja como uma <strong>máquina</strong>. Se você coloca R$ 1.500 na máquina e ela cospe R$ 30.000, ela é muito barata.</p>
+                    <p>Não encare o valor como uma despesa fixa (como energia). Encare como um <strong>Investimento Ativo</strong>. Se R$ 1.500,00 trazem um contrato de R$ 30.000,00, o custo de aquisição se torna irrelevante perto do lucro gerado.</p>
                 </div>
                 <div class="neuro-card" style="margin-bottom:0;">
                     <h4 style="color:var(--gold-text);">3. A Estratégia de Segurança</h4>
@@ -1180,7 +1156,8 @@
                     <div class="neuro-card"><h4>3. A Escada de Valor</h4><p>Atraímos pelo Banheiro -> Ganhamos Confiança no Roupeiro -> Fechamos a Cozinha de Alto Ticket.</p></div>
                 </div>
 
-                <div class="phone-frame">
+                <div class="phone-frame" id="phoneMockup">
+                    <button class="fullscreen-btn" onclick="toggleFullscreen()">⤢ Expandir</button>
                     <div class="dynamic-island"></div>
                     
                     <!-- MARKERS (HIDDEN) -->
@@ -1202,16 +1179,19 @@
                                 <div class="lp-badge-item"><span class="lp-badge-icon">⏱️</span><span class="lp-badge-text">ENTREGA RÁPIDA</span></div>
                                 <div class="lp-badge-item"><span class="lp-badge-icon">📐</span><span class="lp-badge-text">SOB MEDIDA</span></div>
                             </div>
-                            <div class="lp-section-title">Coleção Banheiros 2025</div>
+                            <div class="lp-section-title">Coleção 2025</div>
                             <div class="lp-gallery-scroll">
-                                <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Terracota Zen</div></div>
-                                <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1584622050111-993a426fbf0a?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Sálvia Natural</div></div>
+                                <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Cozinha Gourmet</div></div>
+                                <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Closet Master</div></div>
+                                <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Balcão Madeira</div></div>
                             </div>
-                            <div class="lp-section-title" style="margin-top:20px;">Complete a Casa</div>
-                            <div class="lp-gallery-scroll">
-                                 <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Closet Master</div></div>
-                                 <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Cozinha Gourmet</div></div>
-                                 <div class="lp-project-card"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=300&q=80" class="lp-project-img"><div class="lp-project-info">Balcão Madeira</div></div>
+                            <div class="lp-section-title" style="margin-top:20px;">Paleta de Tendência</div>
+                            <div class="lp-trends">
+                                <div class="lp-color-grid">
+                                    <div><div class="lp-color-circle" style="background:#2C3E50;"></div></div>
+                                    <div><div class="lp-color-circle" style="background:#5D4037;"></div></div>
+                                    <div><div class="lp-color-circle" style="background:#111;"></div></div>
+                                </div>
                             </div>
                             
                             <!-- FAQ Dropdown inside Phone -->
@@ -1232,7 +1212,7 @@
                         
                         <!-- DOCK DE AÇÃO FLUTUANTE (FIXO NO CELULAR) -->
                         <div class="s-cta-sticky" onclick="activateChat()">
-                            <span>💬 QUERO MEU BANHEIRO</span>
+                            <span>💬 QUERO MEU PROJETO</span>
                         </div>
                         
                         <div class="chat-overlay" id="simulatedChat">
@@ -1408,6 +1388,18 @@
             var tabsIds = ['intro-section', 'pain-section', 'solution-section', 'projection-section', 'future-section', 'calendar-section', 'gold-section', 'checklist-section', 'budget-section'];
             var buttons = document.getElementsByClassName('tab-btn');
             if(index < tabsIds.length) { openTab(tabsIds[index], buttons[index]); window.scrollTo(0,0); }
+        }
+
+        function toggleFullscreen() {
+            var phone = document.getElementById('phoneMockup');
+            phone.classList.toggle('fullscreen');
+            
+            var btn = phone.querySelector('.fullscreen-btn');
+            if(phone.classList.contains('fullscreen')) {
+                btn.innerText = "✕ Fechar";
+            } else {
+                btn.innerText = "⤢ Expandir";
+            }
         }
 
         function calculatePotential() {
