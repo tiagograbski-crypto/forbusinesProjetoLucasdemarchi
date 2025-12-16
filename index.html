@@ -145,12 +145,13 @@
         .score-gauge-wrapper {
             background: var(--bg-panel); padding: 30px; border-radius: 12px; border: 1px solid var(--border-light);
             display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 100%;
         }
         .score-val-big { font-family: 'Cormorant Garamond'; font-size: 3.5em; font-weight: 700; color: var(--score-red); line-height: 0.9; }
         .score-bar-container { 
             flex: 1; height: 16px; background: #333; border-radius: 10px; 
             margin: 0 30px; position: relative; border: 1px solid rgba(255,255,255,0.1); 
+            overflow: visible;
         }
         .score-bar-fill {
             width: 100%; height: 100%; border-radius: 10px;
@@ -160,10 +161,10 @@
             position: absolute; top: -6px; width: 6px; height: 28px; background: #fff;
             border: 2px solid #000; box-shadow: 0 0 10px rgba(0,0,0,0.5);
             left: 15%; /* Posição do Score 15 */
-            transform: translateX(-50%);
+            transform: translateX(-50%); z-index: 5;
         }
-        .score-text { text-align: left; }
-        .score-value-display { font-family: 'Cormorant Garamond'; font-size: 3em; font-weight: 700; color: var(--score-red); line-height: 1;}
+        .score-text { text-align: left; min-width: 120px; }
+        .score-value-display { font-family: 'Cormorant Garamond'; font-size: 3.5em; font-weight: 700; color: var(--score-red); line-height: 1;}
         .score-desc { font-size: 0.7em; text-transform: uppercase; color: #888; letter-spacing: 2px; }
 
         /* Browser Mockup */
@@ -219,8 +220,6 @@
         .loss-input { 
             background: rgba(0,0,0,0.3); border: 1px solid #555; color: #fff; padding: 10px; border-radius: 4px; width: 120px; text-align: center; font-size: 1.1em;
         }
-        .loss-total { font-family: 'Cormorant Garamond'; font-size: 2.5em; color: var(--danger); font-weight: 700; line-height: 1;}
-
         .form-group { text-align: left; margin-bottom: 15px; }
         .form-label { display: block; font-size: 0.7em; color: #777; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; font-weight: 700;}
         .form-input {
@@ -240,23 +239,29 @@
         
         .btn-approve {
             background: #000; color: #fff; padding: 14px 35px; border-radius: 50px; border: none;
-            font-weight: 700; text-transform: uppercase; font-size: 0.8em; cursor: pointer; transition: 0.3s;
+            font-weight: 700; text-transform: uppercase; font-size: 0.75em; cursor: pointer; transition: 0.3s;
         }
         .btn-approve:hover { background: var(--success); }
 
         /* PHONE MOCKUP REFINED (APP LIKE) */
         .phone-frame {
-            width: 340px; height: 680px; background: #000; border-radius: 45px; border: 6px solid #1a1a1a;
+            width: 340px; height: 700px; background: #000; border-radius: 45px; border: 6px solid #222;
             margin: 0 auto; position: relative; overflow: hidden; box-shadow: 0 50px 120px rgba(0,0,0,0.9);
             transition: all 0.5s ease;
+            display: flex; flex-direction: column;
         }
         .phone-frame.fullscreen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; max-width: 100%; border: none; border-radius: 0; z-index: 9999;
         }
         .phone-screen {
-            width: 100%; height: 100%; background: #0a0a0a; overflow-y: auto; overflow-x: hidden; position: relative;
+            width: 100%; height: 100%; background: #0a0a0a; position: relative;
+            display: flex; flex-direction: column;
         }
-        .phone-screen::-webkit-scrollbar { display: none; }
+        .phone-scroll-area {
+            flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: 120px;
+            scrollbar-width: none;
+        }
+        .phone-scroll-area::-webkit-scrollbar { display: none; }
 
         /* Neuro Content Elements */
         .n-header-fixed {
@@ -268,6 +273,7 @@
         
         .n-hero {
             height: 380px; background-size: cover; background-position: center; position: relative; transition: background-image 0.6s ease-in-out;
+            flex-shrink: 0;
         }
         .n-hero::after {
             content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
@@ -299,6 +305,18 @@
             content: 'OFERTA DE JANEIRO'; position: absolute; top: 0; right: 0; background: var(--gold-solid);
             color: #000; font-size: 0.5em; font-weight: 800; padding: 3px 8px; border-bottom-left-radius: 8px;
         }
+        
+        /* Carousel Generico */
+        .n-carousel { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; scrollbar-width: none;}
+        .n-carousel::-webkit-scrollbar { display: none; }
+        .n-project-item { min-width: 140px; height: 180px; background: #222; border-radius: 12px; position: relative; overflow: hidden; scroll-snap-align: start; }
+        .n-project-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Feedback Card */
+        .n-review-card { min-width: 240px; background: #1a1a1a; padding: 15px; border-radius: 12px; scroll-snap-align: start; text-align: left; border: 1px solid #333; }
+        .n-stars { color: #f1c40f; font-size: 0.8em; margin-bottom: 5px; }
+        .n-review-text { font-size: 0.75em; color: #ccc; line-height: 1.4; margin-bottom: 10px; font-style: italic; }
+        .n-review-author { font-size: 0.7em; color: #fff; font-weight: 700; }
 
         /* Sticky Button */
         .app-sticky-btn {
@@ -311,6 +329,13 @@
         }
         .app-sticky-btn:hover { transform: translateX(-50%) scale(1.05); box-shadow: 0 15px 50px rgba(212,175,55,0.6); }
         .whatsapp-icon { width: 18px; height: 18px; fill: #000; transition: 0.3s; }
+        
+        /* Protection Gradient behind sticky button */
+        .app-gradient-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 150px;
+            background: linear-gradient(to top, #000 20%, transparent 100%);
+            pointer-events: none; z-index: 15;
+        }
 
         /* CHECKLIST */
         .checklist-item {
@@ -372,13 +397,13 @@
 
         /* Timeline Dashboard Fixo */
         .global-progress-container {
-            background: rgba(212, 175, 55, 0.05); padding: 25px; border-radius: 12px; border: 1px solid var(--gold-solid); margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center;
+            background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left;
         }
         .gp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .gp-title { font-family: 'Montserrat'; font-size: 1em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
-        .gp-percent { font-size: 2em; font-weight: 800; color: var(--gold-solid); }
-        .gp-bar-bg { width: 100%; height: 12px; background: #333; border-radius: 6px; overflow: hidden; }
+        .gp-title { font-family: 'Montserrat'; font-size: 1.1em; font-weight: 700; color: #111; text-transform: uppercase; letter-spacing: 1px; }
+        .gp-percent { font-size: 1.5em; font-weight: 800; color: var(--gold-text); }
+        .gp-bar-bg { width: 100%; height: 12px; background: #f0f0f0; border-radius: 6px; overflow: hidden; }
         .gp-bar-fill { height: 100%; background: var(--gold-gradient); width: 10%; transition: width 1s ease; box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
 
         .timeline { position: relative; max-width: 1000px; margin: 0 auto; padding: 40px 0; }
@@ -434,6 +459,8 @@
             .timeline-item { width: 100%; padding-left: 50px; padding-right: 10px; }
             .timeline-item::after { left: 11px; }
             .left, .right { text-align: left; }
+            /* Footer mobile adjustment */
+            .n-body { padding-bottom: 140px !important; }
         }
     </style>
 </head>
@@ -656,17 +683,20 @@
                 <div style="text-align:center; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
                     <span class="form-label" style="font-size:0.9em; color:var(--success);">Faturamento Projetado (Mensal)</span>
                     <div class="big-number" id="total-proj">R$ 54.000,00</div>
+                    <p style="font-size:0.8em; color:var(--text-secondary);">*Considerando o atingimento das metas acima.</p>
                 </div>
                 
-                 <!-- Chart -->
+                 <!-- Simple CSS Bar Chart Visualization -->
                 <div class="revenue-chart">
                     <div class="chart-row">
-                        <div class="chart-label">Hoje</div>
+                        <div class="chart-label">Cenário Atual</div>
                         <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 20%; background:#444;"></div></div>
+                        <div class="chart-value">Baixo</div>
                     </div>
                     <div class="chart-row">
-                        <div class="chart-label">Projeção</div>
+                        <div class="chart-label">Cenário Projetado</div>
                         <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 85%;"></div></div>
+                        <div class="chart-value" style="color:#2ecc71;">Alto Potencial</div>
                     </div>
                 </div>
             </div>
@@ -689,14 +719,17 @@
                 
                 <div style="margin:40px 0;">
                     <span class="form-label">Investimento Mensal (Agência)</span>
-                    <div style="font-size:1.5em; font-weight:700;">R$ 1.500,00</div>
+                    <div style="font-size:1.5em; font-weight:700;">R$ 1.800,00</div>
                 </div>
 
                 <div style="background: rgba(39, 174, 96, 0.1); border:1px solid var(--success); padding:20px; border-radius:8px;">
                     <h3 style="color:var(--success); font-size:1.2em; text-transform:uppercase; letter-spacing:1px; margin-bottom:20px;">Ponto de Equilíbrio</h3>
                     <div style="font-family:'Cormorant Garamond'; font-size:2.2em; line-height:1.2;" id="roi-result">
-                        Você precisa vender apenas <strong style="color:#fff;">0.05</strong> de uma cozinha para pagar o projeto.
+                        Você precisa vender apenas <strong style="color:#fff;">0.06</strong> de uma cozinha para pagar o projeto.
                     </div>
+                    <p style="color:var(--text-secondary); font-size:0.9em; margin-top:15px;">
+                        *Baseado no investimento de gestão (R$ 1.800). O risco é praticamente zero perto do potencial de retorno.
+                    </p>
                 </div>
             </div>
             <button class="btn-primary" onclick="openTab('roadmap-section')">VER CRONOGRAMA</button>
@@ -708,16 +741,13 @@
         <div class="container">
             <h1>Status do Projeto</h1>
             
-            <!-- PROGRESSO FIXO 10% -->
-            <div class="global-progress-container" style="text-align: center; border: 1px solid var(--gold-solid); background: rgba(212, 175, 55, 0.05);">
-                <h4 style="color:#fff; margin-bottom: 5px;">Dashboard do Cliente</h4>
-                <p style="color:#ccc; font-size: 0.85em; margin-bottom: 20px;">Você poderá acompanhar o andamento do seu projeto passo a passo, em tempo real.</p>
-                
+            <div class="global-progress-container">
                 <div class="gp-header">
-                    <span class="gp-title" style="font-size: 0.9em;">Fase Atual: Planejamento</span>
-                    <span class="gp-percent" style="font-size: 2em; color: var(--gold-solid);">10%</span>
+                    <span class="gp-title">Fase Atual: Planejamento</span>
+                    <span class="gp-percent" id="global-percent">10%</span>
                 </div>
                 <div class="gp-bar-bg"><div class="gp-bar-fill" id="global-bar" style="width: 10%;"></div></div>
+                <p style="color:var(--success); font-size:0.75em; margin-top:10px;">✓ Você está aqui</p>
             </div>
 
             <div class="card-grid" style="text-align:left;">
@@ -751,44 +781,78 @@
 
             <div class="phone-frame" id="phoneMockup">
                 <div class="phone-screen">
-                    <!-- Hero Dinâmico -->
-                    <div class="n-hero" id="nHero" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=600');">
-                        <div class="n-header-fixed">
-                            <span class="n-brand">DEMARCHI</span>
-                            <span>☰</span>
+                     <div class="phone-scroll-area">
+                        <!-- Hero Dinâmico -->
+                        <div class="n-hero" id="nHero" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=600');">
+                            <div class="n-header-fixed">
+                                <span class="n-brand">DEMARCHI</span>
+                                <span>☰</span>
+                            </div>
+                            <div class="n-content-overlay">
+                                <h2 class="n-title">SUA CASA,<br>SUA ASSINATURA.</h2>
+                                <div class="n-subtitle">Marcenaria de Alto Padrão em Chapecó</div>
+                                <div class="n-options">
+                                    <button class="n-option-btn active" onclick="changeHero('living')">Cozinha Gourmet</button>
+                                    <button class="n-option-btn" onclick="changeHero('closet')">Closet Master</button>
+                                    <button class="n-option-btn" onclick="changeHero('bath')">Banheiro Spa</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="n-content-overlay">
-                            <h2 class="n-title">SUA CASA,<br>SUA ASSINATURA.</h2>
-                            <div class="n-subtitle">Marcenaria de Alto Padrão em Chapecó</div>
-                            <div class="n-options">
-                                <button class="n-option-btn active" onclick="changeHero('living')">Cozinha Gourmet</button>
-                                <button class="n-option-btn" onclick="changeHero('closet')">Closet Master</button>
-                                <button class="n-option-btn" onclick="changeHero('bath')">Banheiro Spa</button>
+
+                        <!-- Conteúdo -->
+                        <div class="n-body">
+                            <!-- Banner Oferta de Janeiro -->
+                            <div class="january-offer-card">
+                                <div style="font-weight:700; color:var(--gold-solid); font-size:0.9em; margin-bottom:5px;">OFERTA DE JANEIRO</div>
+                                <h4 style="margin:0; color:#fff; font-size:1.1em;">Balcão Suspenso c/ LED</h4>
+                                <p style="color:#ccc; font-size:0.8em; margin:5px 0;">Design moderno, cuba esculpida e perfil de LED.</p>
+                                <div style="margin-top:8px; font-size:1em; color:#fff;">
+                                    <span style="text-decoration:line-through; color:#666; font-size:0.8em; margin-right:5px;">R$ 2.500</span>
+                                    <strong style="color:var(--success);">R$ 1.499</strong>
+                                </div>
+                                <div style="color:var(--danger); font-size:0.6em; font-weight:700; margin-top:10px; border-top:1px solid #333; padding-top:5px;">🔥 RESTAM APENAS 3 VAGAS</div>
+                            </div>
+
+                            <h3 class="n-big-title" id="prod-title">Cozinha Gourmet</h3>
+                            <p class="n-desc" id="prod-desc">
+                                O coração da casa. Detalhes em madeira nobre, iluminação embutida e acabamento impecável para receber com elegância.
+                            </p>
+                            
+                            <!-- Adiciona prova social -->
+                            <div class="n-section-title">Últimos Projetos</div>
+                            <div class="n-carousel">
+                                <div class="n-project-item"><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=300" class="n-project-img"></div>
+                                <div class="n-project-item"><img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=300" class="n-project-img"></div>
+                                <div class="n-project-item"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=300" class="n-project-img"></div>
+                            </div>
+                            
+                            <div class="n-section-title">O que dizem nossos clientes</div>
+                            <div class="n-carousel">
+                                <div class="n-review-card">
+                                    <div class="n-stars">★★★★★</div>
+                                    <p class="n-review-text">"A cozinha ficou espetacular. Acabamento perfeito e entrega antes do prazo."</p>
+                                    <span class="n-review-author">Ricardo M. - Chapecó</span>
+                                </div>
+                                <div class="n-review-card">
+                                    <div class="n-stars">★★★★★</div>
+                                    <p class="n-review-text">"Profissionalismo do início ao fim. Recomendo de olhos fechados."</p>
+                                    <span class="n-review-author">Ana P. - Centro</span>
+                                </div>
+                            </div>
+                            
+                             <div class="n-footer" style="margin-top:30px; border-top:1px solid #222; padding-top:20px; font-size:0.7em; color:#666; text-align:center;">
+                                <p style="margin-bottom:5px; color:#fff;">DEMARCHI MÓVEIS</p>
+                                <p>Rua Angelo Baldiceira, 86D - Vila Real, Chapecó - SC</p>
+                                <div style="display:flex; justify-content:center; gap:10px; margin-top:10px;">
+                                    <span style="display:flex; align-items:center; gap:4px;"><span style="color:var(--gold-solid);">★</span> Garantia 5 Anos</span>
+                                    <span style="display:flex; align-items:center; gap:4px;"><span style="color:var(--gold-solid);">★</span> Acabamento Premium</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Conteúdo -->
-                    <div class="n-body">
-                        <!-- Banner Oferta de Janeiro -->
-                        <div class="january-offer-card">
-                            <div style="font-weight:700; color:var(--gold-solid); font-size:0.9em; margin-bottom:5px;">OFERTA DE JANEIRO</div>
-                            <h4 style="margin:0; color:#fff; font-size:1.1em;">Balcão Suspenso c/ LED</h4>
-                            <p style="color:#ccc; font-size:0.8em; margin:5px 0;">Design moderno, cuba esculpida e perfil de LED.</p>
-                            <div style="margin-top:8px; font-size:1em; color:#fff;">
-                                <span style="text-decoration:line-through; color:#666; font-size:0.8em; margin-right:5px;">R$ 2.500</span>
-                                <strong style="color:var(--success);">R$ 1.499</strong>
-                            </div>
-                            <div style="color:var(--danger); font-size:0.6em; font-weight:700; margin-top:10px; border-top:1px solid #333; padding-top:5px;">🔥 RESTAM APENAS 3 VAGAS</div>
-                        </div>
-
-                        <h3 class="n-big-title" id="prod-title">Cozinha Gourmet</h3>
-                        <p class="n-desc" id="prod-desc">
-                            O coração da casa. Detalhes em madeira nobre, iluminação embutida e acabamento impecável para receber com elegância.
-                        </p>
-                        
-                        <div style="height:100px;"></div>
-                    </div>
+                    
+                    <!-- Fundo Gradiente para proteger botão -->
+                    <div class="app-gradient-overlay"></div>
 
                     <!-- Sticky Btn -->
                     <div class="app-sticky-btn" onclick="window.open('https://wa.me/5549999084031?text=Olá Demarchi! Vi a coleção no App e gostaria de um orçamento.', '_blank')">
@@ -836,12 +900,12 @@
                 <div class="module-row selected">
                     <input type="checkbox" class="module-checkbox" checked disabled>
                     <div style="flex:1;">
-                        <span class="module-badge" style="background:#111; color:#fff;">Fase 1: Implementação</span>
-                        <div class="module-title" style="margin-top:5px; font-size:1.1em; font-weight:700;">Setup Estratégico + Infra</div>
-                        <div class="module-desc" style="font-size:0.9em; color:#666; margin:5px 0;">Diagnóstico, GMN, Branding, LP e Pixel.</div>
-                        <div class="price-value" style="font-size:1.2em; font-weight:700;">
-                            <span style="font-size:0.6em; color:#888; text-decoration:line-through; margin-right:5px;">R$ 6.800</span>
-                            R$ 3.500,00 <span style="font-size:0.6em; color:#888; font-weight:400;">(Taxa Única)</span>
+                        <span class="module-badge" style="background:#d4af37; color:#000;">Fase 1: Implementação</span>
+                        <div class="module-title" style="margin-top:5px; font-size:1.1em; font-weight:700;">Ecossistema Comercial Full-Stack</div>
+                        <div class="module-desc" style="font-size:0.9em; color:#666; margin:5px 0;">Desenvolvimento do Web App, Identidade Visual Premium, Configuração de Pixel e Rastreamento Avançado.</div>
+                        <div class="price-value" style="font-size:1.4em; font-weight:700; margin-top:10px;">
+                            <span style="font-size:0.5em; color:#888; text-decoration:line-through; margin-right:8px; display:block;">De R$ 9.500,00</span>
+                            R$ 4.990,00 <span style="font-size:0.5em; color:#888; font-weight:400;">(Taxa Única)</span>
                         </div>
                     </div>
                 </div>
@@ -850,29 +914,29 @@
                 <div class="module-row selected">
                     <input type="checkbox" class="module-checkbox" checked disabled>
                     <div style="flex:1;">
-                        <span class="module-badge" style="background:#333; color:#fff;">Fase 2: Recorrência</span>
-                        <div class="module-title" style="margin-top:5px; font-size:1.1em; font-weight:700;">Gestão de Performance</div>
-                        <div class="module-desc" style="font-size:0.9em; color:#666; margin:5px 0;">Gestão de Tráfego e Otimização Mensal.</div>
-                        <div class="price-value" style="font-size:1.2em; font-weight:700;">R$ 1.500,00 <span style="font-size:0.6em; color:#888; font-weight:400;">/mês (após 30 dias)</span></div>
+                        <span class="module-badge" style="background:#333; color:#fff;">Fase 2: Aceleração</span>
+                        <div class="module-title" style="margin-top:5px; font-size:1.1em; font-weight:700;">Gestão de Performance & Growth</div>
+                        <div class="module-desc" style="font-size:0.9em; color:#666; margin:5px 0;">Otimização diária de campanhas, gestão de reputação e relatórios de ROI.</div>
+                        <div class="price-value" style="font-size:1.4em; font-weight:700; margin-top:10px;">R$ 1.800,00 <span style="font-size:0.5em; color:#888; font-weight:400;">/mês (início em 30 dias)</span></div>
                     </div>
                 </div>
                 
                 <!-- Mídia Sugerida -->
                 <div class="media-investment-box">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        <h4 style="margin:0; color:var(--success); font-weight:700;">Combustível da Máquina (Mídia Paga)</h4>
-                        <span style="font-size:0.65em; background:rgba(39, 174, 96, 0.2); color:#2ecc71; padding:3px 8px; border-radius:4px;">Pago ao Google/Meta</span>
+                        <h4 style="margin:0; color:var(--success); font-weight:700;">Verba de Mídia (Google/Meta)</h4>
+                        <span style="font-size:0.65em; background:rgba(39, 174, 96, 0.2); color:#2ecc71; padding:3px 8px; border-radius:4px;">Pago direto às plataformas</span>
                     </div>
                     <p style="font-size:0.8em; color:#aaa; margin-bottom:20px;">
-                        Valor sugerido para começar a gerar resultados. Você define o limite diário no cartão de crédito da empresa.
+                        Combustível para a máquina girar. Valor sugerido para alta competitividade em Chapecó.
                     </p>
                     
                     <div style="margin-bottom:20px;">
                         <div style="display:flex; justify-content:space-between; font-size:0.8em; font-weight:600; color:#fff; margin-bottom:5px;">
-                            <span>Investimento Diário Sugerido</span>
-                            <span id="media-daily-val" style="color:var(--gold-solid);">R$ 40,00</span>
+                            <span>Investimento Diário</span>
+                            <span id="media-daily-val" style="color:var(--gold-solid);">R$ 50,00</span>
                         </div>
-                        <input type="range" min="30" max="150" step="10" value="40" class="media-slider" id="media-slider" oninput="updateMediaValue(this.value)">
+                        <input type="range" min="40" max="200" step="10" value="50" class="media-slider" id="media-slider" oninput="updateMediaValue(this.value)">
                     </div>
                     
                     <div id="media-return-container">
@@ -884,10 +948,10 @@
                 <div class="module-row">
                     <input type="checkbox" class="module-checkbox" id="mod-extra" onchange="calculateTotal()">
                     <div style="flex:1;">
-                        <span class="module-badge" style="background:#2980b9; color:#fff;">Opcional (Promo)</span>
-                        <div class="module-title" style="margin-top:5px; font-size:1.1em; font-weight:700;">Filmmaker In-Loco</div>
-                        <div class="module-desc" style="font-size:0.9em; color:#666; margin:5px 0;">Visita para captação de material profissional.</div>
-                        <div class="price-value" style="font-size:1.2em; font-weight:700;">R$ 350,00 <span style="font-size:0.6em; color:#888; text-decoration:line-through;">R$ 500</span></div>
+                        <span class="module-badge" style="background:#2980b9; color:#fff;">Opcional Recomendado</span>
+                        <div class="module-title" style="margin-top:5px; font-size:1.1em; font-weight:700;">Sessão Filmmaker In-Loco</div>
+                        <div class="module-desc" style="font-size:0.9em; color:#666; margin:5px 0;">Captura de vídeos profissionais no showroom (4h de diária).</div>
+                        <div class="price-value" style="font-size:1.2em; font-weight:700; margin-top:10px;">R$ 800,00</div>
                     </div>
                 </div>
             </div>
@@ -897,9 +961,9 @@
         <div class="budget-footer">
             <div class="budget-info">
                 <div>
-                    <span class="budget-label">Investimento Total (Setup)</span>
-                    <span class="budget-val" id="val-total" style="color:#d4af37;">R$ 3.500,00</span>
-                    <div style="font-size:0.6em; color:#888; text-transform:uppercase;">Pagamento Único à Vista</div>
+                    <span class="budget-label">Investimento Setup (À Vista)</span>
+                    <span class="budget-val" id="val-total" style="color:#d4af37;">R$ 4.990,00</span>
+                    <div style="font-size:0.6em; color:#888; margin-top:4px;">+ R$ 1.800/mês (Recorrência)</div>
                 </div>
             </div>
             <button class="btn-approve" onclick="document.getElementById('success-modal').style.display='flex'">APROVAR PROJETO</button>
@@ -930,7 +994,7 @@
             if(document.getElementById('p1-val')) calcProjection();
             if(document.getElementById('roi-ticket')) calcROI();
             if(document.getElementById('val-total')) calculateTotal();
-            if(document.getElementById('media-slider')) updateMediaValue(40);
+            if(document.getElementById('media-slider')) updateMediaValue(50);
         };
 
         function openTab(id, btn) {
@@ -952,8 +1016,13 @@
         }
 
         function calcLoss() {
-            const searches = document.getElementById('loss-searches')?.value || 500;
-            const ticket = document.getElementById('loss-ticket')?.value || 20000;
+            const searchesEl = document.getElementById('loss-searches');
+            const ticketEl = document.getElementById('loss-ticket');
+            
+            if(!searchesEl || !ticketEl) return;
+            
+            const searches = searchesEl.value || 500;
+            const ticket = ticketEl.value || 20000;
             const loss = searches * 0.01 * ticket;
             const display = document.getElementById('loss-display');
             if(display) display.innerText = loss.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -973,7 +1042,7 @@
             const ticketEl = document.getElementById('roi-ticket');
             if(!ticketEl) return;
             const ticket = ticketEl.value || 30000;
-            const invest = 1500;
+            const invest = 1800; // Valor atualizado da mensalidade
             const breakEven = invest / ticket;
             let html = "";
             if(breakEven < 1) {
@@ -986,11 +1055,10 @@
         }
         
         function calculateTotal() {
-            let base = 3500; // Setup
+            let base = 4990; // Setup Base
             const extraEl = document.getElementById('mod-extra');
-            if(extraEl && extraEl.checked) base += 350;
+            if(extraEl && extraEl.checked) base += 800;
             
-            // Total à vista
             const totalEl = document.getElementById('val-total');
             if(totalEl) totalEl.innerText = base.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
@@ -1001,14 +1069,12 @@
             if(dailyEl) dailyEl.innerText = 'R$ ' + daily.toLocaleString('pt-BR') + '/dia';
             
             const monthly = daily * 30;
-            const google = monthly * 0.6; // 60% Google
-            const meta = monthly * 0.4;   // 40% Meta
             
             // Estimates
-            const estLeads = Math.floor(monthly / 15);
+            const estLeads = Math.floor(monthly / 18); // Custo por Lead um pouco mais conservador (R$ 18)
             const estSalesLow = Math.floor(estLeads * 0.03); 
             const estSalesHigh = Math.ceil(estLeads * 0.06); 
-            const ticket = 15000;
+            const ticket = 15000; // Ticket médio base para estimativa de retorno em ads
             const revLow = estSalesLow * ticket;
             const revHigh = estSalesHigh * ticket;
             
